@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
         user_json['github_id'] = user_json.delete('id')
         user_json['following_url'] = user_json['following_url'].split('{')[0]
         user_json.delete_if{|k,v| !column_names.include? k}
+        user_json['languages'] = []
         user = User.where(user_json).first_or_create
         users << user
       end
@@ -41,6 +42,10 @@ class User < ActiveRecord::Base
     users = User.create_from_json JSON.parse open(api_url).read
     if users
       self.followers << users
+      users.each do |user|
+        user.languages |= self.languages
+        user.save
+      end
       self.update_attribute :followers_crawled, true
     end
   end

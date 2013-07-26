@@ -45,8 +45,7 @@ class Repository < ActiveRecord::Base
     users_json = JSON.parse(open(api_url).read)
     users = User.create_from_json(users_json)
     users.each do |contributor|
-      contributor.languages ||= []
-      contributor.languages << self.language if !user.contributor.include?(self.language)
+      contributor.languages |= [self.language]
       contributor.save
     end
     users
