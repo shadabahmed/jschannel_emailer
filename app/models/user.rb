@@ -10,9 +10,10 @@ class User < ActiveRecord::Base
         user_json['github_id'] = user_json.delete('id')
         user_json.delete_if{|k,v| !column_names.include? k}
         user = User.where(user_json).first_or_create
-        users << users
+        users << user
       end
     end
+    users
   rescue StandardError => e
     Rails.logger.info("Error creating users: #{e.message}\n#{e.backtrace}")
     []
