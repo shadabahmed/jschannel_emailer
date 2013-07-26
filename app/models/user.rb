@@ -17,13 +17,15 @@ class User < ActiveRecord::Base
             retries += 1
             Rails.logger.info "Tyring for #{user_url}, Attempt #{retries}"
             user_json_body = open(user_url).read
-          rescue
+          rescue StandardError => e
             sleep 3
             retry
           end
         end
         user_json = JSON.parse(user_json_body)
         user_json['github_id'] = user_json.delete('id')
+        user_json['followers_count'] = user_json.delete('followers')
+        user_json['following_count'] = user_json.delete('following')
         user_json['following_url'] = user_json['following_url'].split('{')[0]
         user_json.delete_if{|k,v| !column_names.include? k}
         user_json['languages'] = []

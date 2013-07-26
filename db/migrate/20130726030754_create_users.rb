@@ -19,8 +19,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email
       t.string :bio
       t.integer :public_repos
-      t.integer :followers
-      t.integer :following
+      t.integer :followers_count
+      t.integer :following_count
       t.boolean :followers_crawled, :default => false
       t.boolean :following_crawled, :default => false
       t.text :languages
