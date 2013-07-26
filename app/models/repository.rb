@@ -19,24 +19,29 @@ class Repository < ActiveRecord::Base
     repos
   rescue StandardError => e
     Rails.logger.info("Error creating repositories: #{e.message}\n#{e.backtrace}")
-    []
+    nil
   end
 
   def crawl_contributors
     users = crawl contributors_url
-    self.update_attribute :contributors_crawled, true
-    self.contributors << users
+    if users
+      self.update_attribute :contributors_crawled, true
+      self.contributors << users
+    end
   end
 
-  def crawl_contributors
+  def crawl_collaborators
     users = crawl collaborators_url
-    self.update_attribute :contributors_crawled, true
-    self.collaborators << users
+    if users
+      self.update_attribute :contributors_crawled, true
+      self.collaborators << users
+    end
   end
 
   private
 
   def crawl(api_url)
+    Rails.logger.info "Opening #{api_url}"
     users_json = JSON.parse(open(api_url).read)
     users = User.create_from_json(users_json)
     users.each do |contributor|
@@ -48,10 +53,10 @@ class Repository < ActiveRecord::Base
   end
 
   def collaborators_url
-    "https://api.github.com/repos#{url}/collaborators"
+    "https://api.github.com/repos#{url}/collaborators?client_id=#{Rails.application.config.client_id}&client_secret=#{Rails.application.config.client_secret}"
   end
 
   def contributors_url
-    "https://api.github.com/repos#{url}/contributors"
+    "https://api.github.com/repos#{url}/contributors?client_id=#{Rails.application.config.client_id}&client_secret=#{Rails.application.config.client_secret}"
   end
 end

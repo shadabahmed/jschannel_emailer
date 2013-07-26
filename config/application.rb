@@ -19,5 +19,8 @@ module JschannelEmailer
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    config.client_id = '59f74999a9c74b0bdb84'
+    config.client_secret = '1034643aa005de1a7973e29efd98004f1a891665'
   end
 end

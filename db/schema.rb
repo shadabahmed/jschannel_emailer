@@ -68,7 +68,8 @@ ActiveRecord::Schema.define(version: 20130726075248) do
     t.integer  "public_repos"
     t.integer  "followers"
     t.integer  "following"
-    t.boolean  "crawled",           default: false
+    t.boolean  "followers_crawled", default: false
+    t.boolean  "following_crawled", default: false
     t.text     "languages"
     t.datetime "created_at"
     t.datetime "updated_at"
