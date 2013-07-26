@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
         user_json.delete_if{|k,v| !column_names.include? k}
         user = User.where(user_json).first_or_create
         users << user
+        sleep 3
       end
     end
     users
