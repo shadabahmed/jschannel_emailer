@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Login:</strong>
+  <%= @user.login %>
+</p>
+
+<p>
+  <strong>Github:</strong>
+  <%= @user.github_id %>
+</p>
+
+<p>
+  <strong>Avatar url:</strong>
+  <%= @user.avatar_url %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @user.url %>
+</p>
+
+<p>
+  <strong>Html url:</strong>
+  <%= @user.html_url %>
+</p>
+
+<p>
+  <strong>Followers url:</strong>
+  <%= @user.followers_url %>
+</p>
+
+<p>
+  <strong>Following url:</strong>
+  <%= @user.following_url %>
+</p>
+
+<p>
+  <strong>Starred url:</strong>
+  <%= @user.starred_url %>
+</p>
+
+<p>
+  <strong>Organizations url:</strong>
+  <%= @user.organizations_url %>
+</p>
+
+<p>
+  <strong>Repos url:</strong>
+  <%= @user.repos_url %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @user.type %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

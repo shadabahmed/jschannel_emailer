@@ -1,0 +1,61 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :login %><br>
+    <%= f.text_field :login %>
+  </div>
+  <div class="field">
+    <%= f.label :github_id %><br>
+    <%= f.number_field :github_id %>
+  </div>
+  <div class="field">
+    <%= f.label :avatar_url %><br>
+    <%= f.text_area :avatar_url %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br>
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :html_url %><br>
+    <%= f.text_field :html_url %>
+  </div>
+  <div class="field">
+    <%= f.label :followers_url %><br>
+    <%= f.text_field :followers_url %>
+  </div>
+  <div class="field">
+    <%= f.label :following_url %><br>
+    <%= f.text_field :following_url %>
+  </div>
+  <div class="field">
+    <%= f.label :starred_url %><br>
+    <%= f.text_field :starred_url %>
+  </div>
+  <div class="field">
+    <%= f.label :organizations_url %><br>
+    <%= f.text_field :organizations_url %>
+  </div>
+  <div class="field">
+    <%= f.label :repos_url %><br>
+    <%= f.text_field :repos_url %>
+  </div>
+  <div class="field">
+    <%= f.label :type %><br>
+    <%= f.text_field :type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,39 @@
+<h1>Listing users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Login</th>
+      <th>Github</th>
+      <th>Avatar</th>
+      <th>Url</th>
+      <th>Html url</th>
+      <th>Followers</th>
+      <th>Following</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.login %></td>
+        <td><%= user.github_id %></td>
+        <td><%= image_tag user.avatar_url %></td>
+        <td><%= user.url %></td>
+        <td><%= user.html_url %></td>
+        <td><%= user.followers %></td>
+        <td><%= user.following %></td>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User', new_user_path %>
