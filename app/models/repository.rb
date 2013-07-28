@@ -8,12 +8,8 @@ class Repository < ActiveRecord::Base
 
   def self.pull(language)
     repos = []
-    page = 1
-    GithubApi.fetch_repos(language) do |repos_params|
-      repos_params.each do |repo_params|
-        repos << Repository.where(repo_params).first_or_create
-      end
-      page += 1
+    GithubApi.fetch_repos(language) do |repo_params|
+      repos << Repository.where(repo_params).first_or_create
     end
     repos
   end

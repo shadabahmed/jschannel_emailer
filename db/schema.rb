@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20130726075248) do
     t.string   "url"
     t.boolean  "contributors_crawled",  default: false
     t.boolean  "collaborators_crawled", default: false
+    t.boolean  "stargazers_crawled",    default: false
     t.integer  "page"
     t.string   "language"
     t.datetime "created_at"
@@ -66,8 +67,8 @@ ActiveRecord::Schema.define(version: 20130726075248) do
     t.string   "email"
     t.string   "bio"
     t.integer  "public_repos"
-    t.integer  "followers"
-    t.integer  "following"
+    t.integer  "followers_count"
+    t.integer  "following_count"
     t.boolean  "followers_crawled", default: false
     t.boolean  "following_crawled", default: false
     t.text     "languages"
