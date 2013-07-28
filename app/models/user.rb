@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_and_belongs_to_many :repositories
+  has_and_belongs_to_many :repositories, :join_table =>  'repositories_contributors'
   has_and_belongs_to_many :followers, :class_name => 'User', :join_table => 'users_followers', :association_foreign_key => :follower_id
   has_and_belongs_to_many :following, :class_name => 'User', :join_table => 'users_followers', :foreign_key => :follower_id
 
