@@ -6,6 +6,8 @@ class GithubApi
   REPO_CONTRIBUTORS_URL = "https://api.github.com/repos%s/contributors"
   REPO_COLLABORATORS_URL = "https://api.github.com/repos%s/collaborators"
   USER_FOLLOWERS_URL = "https://api.github.com/users/%s/followers?page=%s"
+  USER_REPOSITORIES_URL = "https://api.github.com/users/%s/repos"
+  REPO_COMMITS_URL = "https://api.github.com/repos/%s/commits?author=%s"
   USER_FOLLOWING_URL = "https://api.github.com/users/%s/following?page=%s"
   USER_PROFILE_URL = "https://api.github.com/users/%s"
   MAX_RETRIES = 5
@@ -56,6 +58,22 @@ class GithubApi
         page += 1
       end
       all_users_details
+    end
+
+    def email_id_through_repo(user_id)
+      email = nil
+      repos_json = open_with_retry(USER_REPOSITORIES_URL%user_id)
+      if repos_json
+        repo = JSON.parse(repos_json).first
+        repo_commits_json = open_with_retry(REPO_COMMITS_URL%[repo['full_name'], user_id])
+        if repo_commits_json
+          commits = JSON.parse(repo_commits_json)
+          if !commits.empty?
+            email = commits.first['commit']['author']['email']
+          end
+        end
+      end
+      email
     end
 
     private
