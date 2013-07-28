@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   end
 
   def crawl_followers
-    GithubApi.fetch_users(GithubApi::USER_FOLLOWERS_URL%[self.url, '%s']) do |users_params|
+    GithubApi.fetch_users(GithubApi::USER_FOLLOWERS_URL%[self.login, '%s']) do |users_params|
       users = User.create_from_json(users_params)
       self.followers << users
     end
@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   end
 
   def crawl_following
-    GithubApi.fetch_users(GithubApi::USER_FOLLOWING_URL%[self.url, '%s']) do |users_params|
+    GithubApi.fetch_users(GithubApi::USER_FOLLOWING_URL%[self.login, '%s']) do |users_params|
       users = User.create_from_json(users_params)
       self.followers << users
     end
