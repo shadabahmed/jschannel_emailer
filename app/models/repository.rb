@@ -26,7 +26,7 @@ class Repository < ActiveRecord::Base
   def crawl_collaborators
     GithubApi.fetch_users(GithubApi::REPO_COLLABORATORS_URL%[self.url]) do |users_params|
       users = User.create_from_json(users_params)
-      self.contributors << users
+      self.collaborators << users
     end
     self.update_attribute :collaborators_crawled, true
     self.collaborators
