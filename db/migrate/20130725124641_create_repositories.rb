@@ -5,6 +5,7 @@ class CreateRepositories < ActiveRecord::Migration
       t.string :url
       t.boolean :contributors_crawled, :default => false
       t.boolean :collaborators_crawled, :default => false
+      t.boolean :stargazers_crawled, :default => false
       t.integer :page
       t.string :language
       t.timestamps

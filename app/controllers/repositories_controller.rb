@@ -14,8 +14,8 @@ class RepositoriesController < ApplicationController
  
   def pull
     language = params[:language]
-    Repository.pull(language)
-    render :text => "Added #{repo_links.size} repos from page #{current_page} for #{language}"
+    repos = Repository.pull(language)
+    render :text => "Added #{repos.size} repos for #{language}"
   rescue
     render :text => "Could not fetch repos for #{language}"
   end  
