@@ -12,7 +12,8 @@ class User < ActiveRecord::Base
     users = []
     transaction do
       users_params.each do |user_params|
-        user = User.where(user_params).first_or_create
+        user = User.where(:login => user_params['login']).first_or_create
+        user.update_attributes! users_params
         users << user
       end
     end
@@ -22,7 +23,7 @@ class User < ActiveRecord::Base
   def crawl_followers
     GithubApi.fetch_users(GithubApi::USER_FOLLOWERS_URL%[self.login, '%s']) do |users_params|
       users = User.create_from_json(users_params)
-      self.followers << users
+      self.followers |= users
     end
     self.update_attribute :followers_crawled, true
     self.followers
@@ -31,7 +32,7 @@ class User < ActiveRecord::Base
   def crawl_following
     GithubApi.fetch_users(GithubApi::USER_FOLLOWING_URL%[self.login, '%s']) do |users_params|
       users = User.create_from_json(users_params)
-      self.followers << users
+      self.following |= users
     end
     self.update_attribute :following_crawled, true
     self.following
