@@ -65,6 +65,7 @@ class GithubApi
       repos_json = open_with_retry(USER_REPOSITORIES_URL%user_id)
       if repos_json
         repo = JSON.parse(repos_json).first
+        return unless repo
         repo_commits_json = open_with_retry(REPO_COMMITS_URL%[repo['full_name'], user_id])
         if repo_commits_json
           commits = JSON.parse(repo_commits_json)
