@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
     transaction do
       users_params.each do |user_params|
         user = User.where(:login => user_params['login']).first_or_create
-        user.update_attributes! users_params
+        users_params['languages'] |= (user.languages || [])
+        user.update_attributes! user_params
         users << user
       end
     end
